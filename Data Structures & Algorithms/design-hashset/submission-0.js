@@ -1,0 +1,84 @@
+
+class Node{
+    constructor(key){
+        this.key = key
+        this.next = null    
+    }
+}
+
+class MyHashSet {
+    constructor() {
+        this.set = Array.from({length : 10000}, () => new Node(0)) 
+    }
+
+    _hash(key){
+        return key % this.set.length;
+    }
+
+    /**
+     * @param {number} key
+     * @return {void}
+     */
+    add(key) {
+        let index = this._hash(key)
+        let cur = this.set[index]
+        while(cur.next){
+            if(cur.next.key === key){
+                return 
+            }
+            
+            cur = cur.next
+        }
+
+        cur.next = new Node(key)
+
+    }
+
+
+    /**
+     * @param {number} key
+     * @return {void}
+     */
+    remove(key) {
+        let index = this._hash(key);
+        let cur = this.set[index]
+
+        while(cur.next){
+            if(cur.next.key === key){
+                cur.next = cur.next.next
+                return 
+            }
+            cur = cur.next
+        }
+
+
+    }
+
+    /**
+     * @param {number} key
+     * @return {boolean}
+     */
+    contains(key) {
+
+        let index = this._hash(key);
+        let cur = this.set[index]
+
+        while(cur.next){
+            if(cur.next.key === key){
+                return true 
+            }
+            cur = cur.next
+        }
+
+        return false
+    
+    }
+}
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * var obj = new MyHashSet()
+ * obj.add(key)
+ * obj.remove(key)
+ * var param_3 = obj.contains(key)
+ */
