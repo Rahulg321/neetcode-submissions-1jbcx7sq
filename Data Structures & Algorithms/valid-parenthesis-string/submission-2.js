@@ -1,0 +1,35 @@
+class Solution {
+    /**
+     * @param {string} s
+     * @return {boolean}
+     */
+    checkValidString(s) {
+        let leftMin = 0;
+        let leftMax = 0;
+
+        for(const c of s){
+            if(c === "("){
+                leftMax ++;
+                leftMin++;
+            }else if (c === ")"){
+                leftMin--;
+                leftMax--;
+            }else {
+                leftMin--;
+                leftMax++;
+            }
+
+
+            if(leftMax < 0){
+                return false
+            }
+
+            if(leftMin < 0){
+                leftMin = 0;
+            }
+        }
+
+
+        return leftMin === 0
+    }
+}
